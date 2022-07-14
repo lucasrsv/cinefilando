@@ -8,7 +8,7 @@
 import UIKit
 
 class NowPlayingCollectionViewCell: UICollectionViewCell {
-    
+    static let cellIdentifier = "nowPlayingCell"
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!

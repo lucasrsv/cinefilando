@@ -9,12 +9,36 @@ import UIKit
 
 class DetailsViewController: UIViewController {
 
+    @IBOutlet weak var backdropImage: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var posterImage: UIImageView!
+    @IBOutlet weak var ratingLabel: UILabel!
+    @IBOutlet weak var overviewLabel: UILabel!
+    
+    
     var movie: Movie?
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = movie?.title
-        print(movie?.title)
-        // Do any additional setup after loading the view.
+
+        
+        guard let movie = movie else {
+            return
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = dateFormatter.date(from: movie.releaseDate)
+        print(date)
+        let finalDateFormatter = DateFormatter()
+        finalDateFormatter.dateFormat = "MMM dd,yyyy"
+        print(finalDateFormatter.string(from: date!))
+        
+        self.title = movie.title
+        backdropImage.image = UIImage(named: movie.backdrop)
+        titleLabel.text = movie.title
+        posterImage.image = UIImage(named: movie.poster)
+        ratingLabel.text = "Rating: \(movie.voteAverage)/10"
+        overviewLabel.text = movie.overview
+
     }
     
 

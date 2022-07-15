@@ -13,10 +13,8 @@ extension FeaturedViewController: UICollectionViewDelegate {
         let movie: Movie
         
         if collectionView == self.popularCollectionView {
-            print("tocou numa cell da popular")
             movie = popularMovies[indexPath.item]
         } else if collectionView == self.nowPlayingCollectionView {
-            print("tocou numa cell da now playing")
             movie = nowPlayingMovies[indexPath.item]
         } else {
             movie = nowPlayingMovies[indexPath.item]

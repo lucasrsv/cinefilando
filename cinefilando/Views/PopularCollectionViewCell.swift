@@ -12,4 +12,9 @@ class PopularCollectionViewCell: UICollectionViewCell {
     static let cellIdentifier = "PopularCollectionViewCell"
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var image: UIImageView!
+    
+    func setup(title: String, image: UIImage) {
+        titleLabel.text = title
+        self.image.image = image
+    }
 }

@@ -15,33 +15,27 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var overviewLabel: UILabel!
     
-    
     var movie: Movie?
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
         guard let movie = movie else {
             return
         }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let date = dateFormatter.date(from: movie.releaseDate)
-        print(date)
-        let finalDateFormatter = DateFormatter()
-        finalDateFormatter.dateFormat = "MMM dd,yyyy"
-        print(finalDateFormatter.string(from: date!))
         
         self.title = movie.title
         
         Task {
-            let imageData = await Movie.downloadImageData(withPath: movie.backdropPath)
-            let image = UIImage(data: imageData) ?? UIImage()
-            self.backdropImage.image = image
+            let backdropData = await Movie.downloadImageData(withPath: movie.backdropPath)
+            let backdrop = UIImage(data: backdropData) ?? UIImage()
+            self.backdropImage.image = backdrop
+            
+            let posterData = await Movie.downloadImageData(withPath: movie.posterPath)
+            let poster = UIImage(data: posterData) ?? UIImage()
+            self.posterImage.image = poster
         }
         
         titleLabel.text = movie.title
-        posterImage.image = UIImage(named: movie.posterPath)
         ratingLabel.text = "Rating: \(movie.voteAverage)/10"
         overviewLabel.text = movie.overview
 

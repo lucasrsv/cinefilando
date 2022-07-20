@@ -9,7 +9,6 @@ import UIKit
 
 extension FeaturedViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         let movie: Movie
         
         if collectionView == self.popularCollectionView {
@@ -17,9 +16,9 @@ extension FeaturedViewController: UICollectionViewDelegate {
         } else if collectionView == self.nowPlayingCollectionView {
             movie = nowPlayingMovies[indexPath.item]
         } else {
-            movie = nowPlayingMovies[indexPath.item]
-            print("tocou na outra")
+            movie = upcomingMovies[indexPath.item]
         }
+        
         self.performSegue(withIdentifier: "detailsSegue", sender: movie)
     }
 }

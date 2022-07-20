@@ -35,6 +35,52 @@ extension Movie {
         return []
     }
     
+    static func nowPlayingMoviesAPI() async -> [Movie] {
+        var components = Movie.urlComponentes
+        components.path = "/3/movie/now_playing"
+        components.queryItems = [
+            URLQueryItem(name: "api_key", value: apiKey)
+        ]
+        let session = URLSession.shared
+        
+        do {
+            let (data, response) = try await session.data(from: components.url!)
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            let movieResult =  try decoder.decode(MoviesResponse.self, from: data)
+            
+            return movieResult.results
+            
+        } catch {
+            print(error)
+        }
+
+        return []
+    }
+    
+    static func upcomingMoviesAPI() async -> [Movie] {
+        var components = Movie.urlComponentes
+        components.path = "/3/movie/popular"
+        components.queryItems = [
+            URLQueryItem(name: "api_key", value: apiKey)
+        ]
+        let session = URLSession.shared
+        
+        do {
+            let (data, response) = try await session.data(from: components.url!)
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            let movieResult =  try decoder.decode(MoviesResponse.self, from: data)
+            
+            return movieResult.results
+            
+        } catch {
+            print(error)
+        }
+
+        return []
+    }
+    
     // MARK: - Download de imagens
     static func downloadImageData(withPath: String) async -> Data {
         let urlString = "https://image.tmdb.org/t/p/w780\(withPath)"
